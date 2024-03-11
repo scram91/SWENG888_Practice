@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913235195342",
+    "project_id": "module5-2f85e",
+    "storage_bucket": "module5-2f85e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913235195342:android:c8d1aedb007e620f5f679f",
+        "android_client_info": {
+          "package_name": "edu.psu.sweng888.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5FE7WZxw2JaPWNPrzSPq2ZHqwDwE10ME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
