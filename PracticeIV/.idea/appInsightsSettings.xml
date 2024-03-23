@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="edu.psu.sweng888.practiceiv" />
+                  <option name="mobileSdkAppId" value="1:1094843981634:android:15d1ef5e513ae5513c72db" />
+                  <option name="projectId" value="project-iv-17f17" />
+                  <option name="projectNumber" value="1094843981634" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

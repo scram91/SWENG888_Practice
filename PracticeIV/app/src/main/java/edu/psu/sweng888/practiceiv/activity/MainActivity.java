@@ -1,4 +1,4 @@
-package edu.psu.sweng888.practiceiv;
+package edu.psu.sweng888.practiceiv.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,13 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import edu.psu.sweng888.practiceiv.R;
 
-    //TODO: THIS WILL BE THE SPLASH SCREEN
+/*
+This Contains the splash screen for the app.
+User will be taken directly to login screen after the splash screen
+ */
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
