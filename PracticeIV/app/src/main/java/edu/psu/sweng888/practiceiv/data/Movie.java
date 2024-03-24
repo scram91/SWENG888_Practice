@@ -10,7 +10,6 @@ public class Movie implements Serializable {
     private String director;
     private String year;
     private String studio;
-    private int imageResourceId;
     public Movie() {
     }
     public Movie(String title, String director, String year, String studio) {
@@ -50,9 +49,5 @@ public class Movie implements Serializable {
 
     public void setStudio(String studio) {
         this.studio = studio;
-    }
-
-    public int getImageResourceId() {
-        return R.drawable.ic_book;
     }
 }

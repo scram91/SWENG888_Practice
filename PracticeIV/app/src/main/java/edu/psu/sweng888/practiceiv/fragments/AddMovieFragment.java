@@ -12,8 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.psu.sweng888.practiceiv.R;
 import edu.psu.sweng888.practiceiv.data.Movie;
@@ -25,7 +34,9 @@ public class AddMovieFragment extends Fragment implements View.OnClickListener{
     private EditText yearEditText;
     private EditText studioEditText;
     private Button confirmButton;
-    private DatabaseReference mDatabaseReference;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    /** Corresponding collection */
+    private CollectionReference mCollectionReference = db.collection("movies");
 
     @Nullable
     @Override
@@ -33,7 +44,6 @@ public class AddMovieFragment extends Fragment implements View.OnClickListener{
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add_movie, container, false);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Get references to the EditText views
         titleEditText = rootView.findViewById(R.id.home_edit_title);
@@ -61,20 +71,45 @@ public class AddMovieFragment extends Fragment implements View.OnClickListener{
     }
 
     public void confirm() {
-        String title = titleEditText.getText().toString().trim();
-        String director = directorEditText.getText().toString().trim();
-        String year = yearEditText.getText().toString().trim();
-        String studio = studioEditText.getText().toString().trim();
+        Map<String,Object> movieFirebase = new HashMap<>();
+        /** Getting user inputs */
 
-        if (title.isEmpty() || director.isEmpty() || year.isEmpty() || studio.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-        } else {
-            Movie newMovie = new Movie(title, director, year, studio);
-            mDatabaseReference.child("movies").child(title).setValue(newMovie);
+        String title = titleEditText.getText().toString();
+        String director = directorEditText.getText().toString();
+        String year = yearEditText.getText().toString();
+        String studio = studioEditText.getText().toString();
 
-            Toast.makeText(getContext(), "New movie added", Toast.LENGTH_SHORT).show();
-            clearFields();
-        }
+        movieFirebase.put("title", title);
+        movieFirebase.put("director", director);
+        movieFirebase.put("year", year);
+        movieFirebase.put("studio", studio);
+
+        DocumentReference documentReference = mCollectionReference.document(title);
+
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                /** If album is already in list, notify the user. Otherwise add the album. */
+                if(documentSnapshot.exists()){
+                    Toast.makeText(getContext(),"Album already exists in list",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    documentReference.set(movieFirebase).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(getContext(),title+" was added successfully",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(),"Something went wrong.",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
+
     }
 
     public void clearFields(){

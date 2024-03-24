@@ -42,7 +42,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         createButton = findViewById(R.id.create_account);
         password_create = findViewById(R.id.pass_word);
         email_create = findViewById(R.id.email_text);
-        user_create = findViewById(R.id.create_account_uname);
 
         //Firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -62,29 +61,28 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         };
-
+        //Create Button Listener
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(email_create.getText().toString())&& !TextUtils.isEmpty(user_create.getText().toString()) && !TextUtils.isEmpty(password_create.getText().toString())){
+                if(!TextUtils.isEmpty(email_create.getText().toString())&& !TextUtils.isEmpty(password_create.getText().toString())){
 
                     String email = email_create.getText().toString().trim();
                     String pass = password_create.getText().toString().trim();
-                    String username = user_create.getText().toString().trim();
 
-                    CreateUserEmailAccount(email,pass,username);
+                    CreateUserEmailAccount(email,pass);
                 }else{
                     Toast.makeText(CreateAccountActivity.this, "No fields can be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+    //Method to create user account
     private void CreateUserEmailAccount(
             String email,
-            String pass,
-            String username
+            String pass
     ){
-        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(username)){
+        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)){
             firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,6 +91,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         Toast.makeText(CreateAccountActivity.this, "user is created", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     }

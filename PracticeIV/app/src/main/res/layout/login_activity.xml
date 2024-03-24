@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
-        android:text="APP TITLE"
+        android:text="@string/practice_iv_application"
         android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"

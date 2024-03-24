@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEt = findViewById(R.id.email_edittext);
         passEt = findViewById(R.id.password_edittext);
 
+            // Listener for create account button
         createAccount.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                                                  startActivity(i);
                                              }
                                          });
+        //listener for login button
         logIn.setOnClickListener(v -> {
 
                 loginUser(
@@ -54,18 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 );
             });
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        boolean loggedOut = getIntent().getBooleanExtra("logout", false);
-
-        if (loggedOut) {
-            Toast.makeText(LoginActivity.this,"Logged out successfully", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    private void loginUser(String email, String pwd) {
+     private void loginUser(String email, String pwd) {
         // Checking for empty texts
         if (!TextUtils.isEmpty(email)
                 && !TextUtils.isEmpty(pwd)
@@ -74,8 +65,9 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(AuthResult authResult) {
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
-
+                    //Onsuccessful login send user to the "home page"
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                    i.putExtra("email", email);
                     startActivity(i);
                 }
             });
