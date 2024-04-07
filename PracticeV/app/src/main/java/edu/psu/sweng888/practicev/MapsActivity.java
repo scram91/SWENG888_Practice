@@ -29,10 +29,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    private static final int DEFAULT_ZOOM = 15;
     private static final String TAG = MapsActivity.class.getSimpleName();
-    private final String GOOGLE_API_KEY = "AIzaSyC2vkifl8EXv316cJy5jprIDcYUnYdU1Gk";
-
     private GoogleMap mMap;
     private TextView textViewOption1, textViewOption2;
     private SearchView mSearchView;
@@ -50,12 +47,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        /** Instantiate the UI Elements */
+        //Instantiate the UI Elements
         instantiateUIElements();
-        /** Include a listener to the searchView */
+        //Include a listener to the searchView
         createSearchViewListener();
 
-
+        //create navigation drawer and selected item listener
         mDrawerLayout = findViewById(R.id.nav_drawer_layout);
         mNavigationView = findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(MapsActivity.this);
@@ -72,7 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //When an item is clicked the map will pan to that location and place a marker
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {// Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
         Log.d(TAG, "Entered onNavigationItemSelected");
         int id = item.getItemId();
         LatLng genosLatLng = new LatLng(39.933811, -75.158867);
@@ -108,39 +106,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    //Function for searching a location
     private void createSearchViewListener() {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                /** Getting the location name from the searchView */
+                // Getting the location name from the searchView
                 String locationName = mSearchView.getQuery().toString();
-                /** Create list of address where we will store the locations found **/
+                //Create list of address where we will store the locations found
                 List<Address> addressList = null;
-                /** Check if the location is null */
-                if (locationName != null || locationName.equals("")) {
-                    /** Initializing the geocode */
-                    Geocoder geocoder = new Geocoder(MapsActivity.this);
-                    try {
-                        addressList = geocoder.getFromLocationName(locationName, 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    /** Getting the location in the first position */
-                    Address address = addressList.get(0);
-                    /** Creating the LatLng object to store the address coordinates */
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    /** Add a marker */
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
-                    /** Animate the camera */
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
+                // Check if the location is null
+                // Initializing the geocode
+                Geocoder geocoder = new Geocoder(MapsActivity.this);
+                try {
+                    addressList = geocoder.getFromLocationName(locationName, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                // Getting the location in the first position
+                Address address = addressList.get(0);
+                // Creating the LatLng object to store the address coordinates
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                // Add a marker
+                mMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
+                // Animate the camera
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                /** Since we are not using autocomplete, this method will not
-                 * be implemented at this time */
+                // Since we are not using autocomplete, this method will not be implemented at this time
                 return false;
             }
         });
@@ -149,10 +145,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        //Default center lat long
         LatLng philadelphia = new LatLng(39.9526, -75.1652);
+        //default center name
         String locationName = "Philadelphia";
+        //adding marker for default center
         addMarker(locationName, philadelphia);
+        //add zoom controls to map
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        //pan map
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(philadelphia, 10));
     }
 
@@ -174,11 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         textViewOption1 = findViewById(R.id.option_clear_map);
         textViewOption2 = findViewById(R.id.option_back_to_center);
-       /**TODO
-        * ADD Options for different locations in philly
-        */
-
-       textViewOption1.setOnClickListener(this);
+        textViewOption1.setOnClickListener(this);
         textViewOption2.setOnClickListener(this);
 
     }
@@ -186,10 +183,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void showOptionsMenu() {
         ConstraintLayout optionsMenu = findViewById(R.id.options_menu);
         if (optionsMenu.getVisibility() == View.VISIBLE) {
-            /** Hide the options menu */
+            // Hide the options menu
             optionsMenu.setVisibility(View.GONE);
         } else {
-            /** Show the options menu */
+            // Show the options menu
             optionsMenu.setVisibility(View.VISIBLE);
         }
     }
@@ -202,6 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(philadelphia, 10));
     }
 
+    //Needed for navigation bar
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);

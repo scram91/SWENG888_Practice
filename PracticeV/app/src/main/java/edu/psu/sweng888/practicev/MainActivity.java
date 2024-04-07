@@ -3,13 +3,10 @@ package edu.psu.sweng888.practicev;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,14 +17,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Bottom Navigation Bar
         mBottomNavigationView
                 = findViewById(R.id.bottomNavigationView);
 
         mBottomNavigationView
                 .setOnNavigationItemSelectedListener(this);
-        //mBottomNavigationView.setSelectedItemId(R.id.information);
     }
 
+    //Similar to Navigation Drawer
+    //on an item selection got to that specific activity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
