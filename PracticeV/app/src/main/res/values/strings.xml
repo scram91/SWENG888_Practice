@@ -1,3 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PracticeV</string>
+    <string name="map_clean"> Clean Map </string>
+    <string name="add_marker">Add Marker</string>
+    <string name="create_polylines">Create Polylines</string>
+    <string name="create_polygons">Create Polygons</string>
+    <string name="back_to_center">Back To Center</string>
+    <string name="welcome_message">Welcome to the Home Screen\nSelect An Item From the Nav Bar to get Started</string>
+    <string name="go_to_map">Go To Map</string>
+    <string name="geno_s_steaks">Geno\'s Steaks</string>
+    <string name="pat_s_king_of_steaks">Pat\'s King of Steaks</string>
+    <string name="dalessandro_s_steaks">Dalessandro\'s Steaks</string>
+    <string name="chubby_s_steaks">Chubby\'s Steaks</string>
+    <string name="pick_a_cheesesteak">Pick a Cheesesteak</string>
+    <string name="philadelphia_pa">Philadelphia, PA</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="info_text">This application is a feature test to showcase the functionality of certain design features.\n\nThis application contains a bottom navigation bar on the main activity\n\nA navigation bar and floating action button on ther maps activity.\n\nAdditionally, the user can use the search bar to pan the map to different locations and add markers for several locations.\n\nThis page is used to contain this information and to add a destination for the bottom navigation bar.</string>
+    <string name="info">Info</string>
+    <string name="home">Home</string>
 </resources>

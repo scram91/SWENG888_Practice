@@ -16,11 +16,7 @@
             android:name=".activity.MainActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity"
             android:exported="false"
@@ -30,7 +26,13 @@
             android:label="CreateAccountActivity"/>
         <activity android:name=".activity.HomeActivity"
             android:exported="true"
-            android:label="HomeActivity"/>
+            android:label="HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

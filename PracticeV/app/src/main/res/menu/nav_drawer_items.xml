@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/genos_steaks"
+
+            android:title="@string/geno_s_steaks" />
+        <item
+            android:id="@+id/pats_steaks"
+            android:title="@string/pat_s_king_of_steaks" />
+        <item
+            android:id="@+id/del_steaks"
+            android:title="@string/dalessandro_s_steaks" />
+        <item
+            android:id="@+id/chubbys_steaks"
+            android:title="@string/chubby_s_steaks" />
+    </group>
+
+</menu>
